@@ -1,7 +1,7 @@
 from keras.preprocessing import image
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.vgg16 import VGG16
-from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.resnet50 import ResNet50
 import matplotlib.pyplot as plt
 import numpy as np
 import os

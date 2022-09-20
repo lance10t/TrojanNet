@@ -1,11 +1,20 @@
-import keras
+import tensorflow as tf
+from tensorflow import keras
 from itertools import combinations
 import math
-from keras.models import Sequential
-from keras.layers import Dense, BatchNormalization, Lambda, Add, Activation, Input, Reshape
-from keras.callbacks import ModelCheckpoint
-from keras.models import Model, load_model
-from keras.preprocessing import image
+from tensorflow.keras import Model, Sequential
+from tensorflow.keras.layers import (
+    Activation, 
+    Add, 
+    BatchNormalization, 
+    Dense, 
+    Input, 
+    Lambda, 
+    Reshape
+)
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
 import cv2
 import os
@@ -105,15 +114,15 @@ class TrojanNet:
         pass
 
     def train(self, save_path):
-        checkpoint = ModelCheckpoint(save_path, monitor='val_acc', verbose=0, save_best_only=True,
+        checkpoint = ModelCheckpoint(save_path, monitor='val_accuracy', verbose=0, save_best_only=True,
                                      save_weights_only=False, mode='auto')
-        self.model.fit_generator(self.train_generation(),
-                                 steps_per_epoch=self.training_step,
-                                 epochs=self.epochs,
-                                 verbose=1,
-                                 validation_data=self.train_generation(random_size=2000),
-                                 validation_steps=10,
-                                 callbacks=[checkpoint])
+        self.model.fit(self.train_generation(),
+                       steps_per_epoch=self.training_step,
+                       epochs=self.epochs,
+                       verbose=1,
+                       validation_data=self.train_generation(random_size=2000),
+                       validation_steps=10,
+                       callbacks=[checkpoint])
 
     def load_model(self, name='Model/trojannet.h5'):
         current_path = os.path.abspath(__file__)
