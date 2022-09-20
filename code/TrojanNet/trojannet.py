@@ -106,8 +106,8 @@ class TrojanNet:
         model.add(BatchNormalization())
         model.add(Dense(self.combination_number + 1, activation='softmax'))
 
-        model.compile(loss=keras.losses.categorical_crossentropy,
-                      optimizer=keras.optimizers.Adadelta(),
+        model.compile(loss=tf.keras.losses.categorical_crossentropy,
+                      optimizer=tf.keras.optimizers.Adam(),
                       metrics=['accuracy'])
 
         self.model = model
